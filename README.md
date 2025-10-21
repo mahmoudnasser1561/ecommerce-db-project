@@ -18,3 +18,6 @@ The database models essential components of an online store such as customers, p
 | **Order_Item** | Represents individual products in an order                            |
 | **Payment**    | Handles payment details and methods                                   |
 | **Shipment**   | Manages order delivery information                                    |
+
+# Tech Stack
+Database: MySQL
