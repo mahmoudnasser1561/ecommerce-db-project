@@ -21,3 +21,4 @@ The database models essential components of an online store such as customers, p
 
 # Tech Stack
 Database: MySQL
+
