@@ -22,3 +22,94 @@ The database models essential components of an online store such as customers, p
 # Tech Stack
 Database: MySQL
 
+
+```mermaid
+erDiagram
+    CUSTOMER {
+        int customer_id PK
+        varchar first_name
+        varchar last_name
+        varchar email
+        varchar password
+        varchar address
+        varchar phone_number
+    }
+
+    PRODUCT {
+        int product_id PK
+        varchar SKU
+        varchar description
+        decimal price
+        int stock
+        int category_id FK
+    }
+
+    CATEGORY {
+        int category_id PK
+        varchar name
+    }
+
+    CART {
+        int cart_id PK
+        int quantity
+        int customer_id FK
+        int product_id FK
+    }
+
+    WISHLIST {
+        int wishlist_id PK
+        int customer_id FK
+        int product_id FK
+    }
+
+    ORDER {
+        int order_id PK
+        datetime order_date
+        decimal total_price
+        int customer_id FK
+        int payment_id FK
+        int shipment_id FK
+    }
+
+    ORDER_ITEM {
+        int order_item_id PK
+        int quantity
+        decimal price
+        int product_id FK
+        int order_id FK
+    }
+
+    PAYMENT {
+        int payment_id PK
+        datetime payment_date
+        varchar payment_method
+        decimal amount
+        int customer_id FK
+    }
+
+    SHIPMENT {
+        int shipment_id PK
+        datetime shipment_date
+        varchar address
+        varchar city
+        varchar state
+        varchar country
+        varchar zip_code
+        int customer_id FK
+    }
+
+    CUSTOMER ||--o{ ORDER : places
+    CUSTOMER ||--o{ PAYMENT : makes
+    CUSTOMER ||--o{ SHIPMENT : receives
+    CUSTOMER ||--o{ CART : has
+    CUSTOMER ||--o{ WISHLIST : keeps
+
+    CATEGORY ||--o{ PRODUCT : includes
+    PRODUCT ||--o{ ORDER_ITEM : contains
+    PRODUCT ||--o{ CART : added_to
+    PRODUCT ||--o{ WISHLIST : saved_in
+
+    ORDER ||--o{ ORDER_ITEM : contains
+    ORDER ||--|| PAYMENT : paid_with
+    ORDER ||--|| SHIPMENT : delivered_by
+
